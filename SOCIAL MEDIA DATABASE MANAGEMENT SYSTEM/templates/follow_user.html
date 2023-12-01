@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Follow User</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            font-family: 'Arial Black', sans-serif;
+            margin-bottom: 30px;
+        }
+        form {
+            max-width: 320px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: calc(100% - 16px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s ease-in-out;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+        button[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease-in-out;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Follow User</h1>
+    <form method="POST" action="/follow_user">
+        <label for="follower_id">Follower ID:</label>
+        <input type="text" id="follower_id" name="follower_id" required>
+        <br><br>
+        <label for="followee_id">Followee ID:</label>
+        <input type="text" id="followee_id" name="followee_id" required>
+        <br><br>
+        <button type="submit">Follow User</button>
+    </form>
+</body>
+</html>

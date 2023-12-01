@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hashtag Queries</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 600px;
+        }
+        h2 {
+            color: #333;
+            font-family: 'Arial Black', sans-serif;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease-in-out;
+        }
+        li:hover {
+            background-color: #e3f2fd;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h2>Most Followed Hashtags</h2>
+    <ul>
+        {% if hashtag_most_followed %}
+            {% for hashtag, count in hashtag_most_followed %}
+                <li>{{ hashtag }} - {{ count }}</li>
+            {% endfor %}
+        {% else %}
+            <li>No most followed hashtags available</li>
+        {% endif %}
+    </ul>
+</div>
+
+<div class="box">
+    <h2>Most Used Hashtags</h2>
+    <ul>
+        {% if hashtag_most_used %}
+            {% for hashtag, count in hashtag_most_used %}
+                <li>{{ hashtag }} - {{ count }}</li>
+            {% endfor %}
+        {% else %}
+            <li>No most used hashtags available</li>
+        {% endif %}
+    </ul>
+</div>
+</body>
+</html>

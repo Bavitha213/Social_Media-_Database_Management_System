@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Insert Hashtag</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            font-family: 'Arial Black', sans-serif;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Insert a Hashtag</h2>
+    <input type="text" id="hashtagInput" placeholder="Enter a Hashtag">
+    <button id="insertButton">Insert Hashtag</button>
+    
+    <script>
+        document.getElementById('insertButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+            
+            // Get the hashtag from the input field
+            var hashtag = document.getElementById('hashtagInput').value;
+
+            // Use JavaScript to make an AJAX request to your server to call the procedure
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/hashtag'); // Use the correct server endpoint
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            // Send the hashtag to the server
+            xhr.send(JSON.stringify({ hashtag_name: hashtag }));
+
+            // Handle the response (you can display a success message or handle errors)
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert('Hashtag inserted successfully!');
+                } else {
+                    alert('Error inserting hashtag. Please try again.');
+                }
+            };
+        });
+    </script>
+</body>
+</html>

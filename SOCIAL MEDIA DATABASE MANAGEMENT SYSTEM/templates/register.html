@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Registration Page</title>
+    <style>
+        body {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://img.freepik.com/premium-photo/natural-marble-pattern-background_1258-22160.jpg');
+            background-size: 1400px;
+            
+            background-repeat: no-repeat;
+            
+        }
+        .registration-box {
+            background-color: rgb(82, 162, 212);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center; /* Center the content inside the box */
+        }
+        .registration-form {
+            display: inline-block;
+            text-align: center;
+        }
+        .heading {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-box">
+        <h1>Create Account</h1>
+        <form class="registration-form" method="post" action="/register">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required><br><br>
+
+            <label for="profile_photo_url">profile_photo_url:</label><br>
+            <input type="text" id="profile_photo_url" name="profile_photo_url" ><br><br>
+
+            <label for="bio">bio:</label><br>
+            <input type="text" id="bio" name="bio" ><br><br>
+
+            <label for="email">email:</label><br><br>
+            <input type="text" id="email" name="email" required><br><br>
+
+            <input type="submit" value="Register">
+        </form>
+    </div>
+</body>
+</html>
+
+

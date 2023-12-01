@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home Page</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #138f91;
+            color: #fff;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            font-size: 20px;
+        }
+        .user-id {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .username {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .bio {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .profile-photo {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 50%;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+            justify-content: center;
+        }
+        .box {
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px;
+            flex: 1;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        button[type="submit"] {
+            background-color: #138f91;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .Trending Hashtags {
+            background-color: lightskyblue; /* Light gray */
+        }
+        .hashtags-box {
+            background-color: #00d5ff; /* Yellow */
+        }
+        .bookmarks-box {
+            background-color: #57f3f5; /* Dark turquoise */
+        }
+        .Mutual Followers{
+            background-color: #57f3f5; 
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="user-info">
+            {% for user_id in user_data %}
+                <div class="user-id">{{user_id}}</div>
+                <div class="username">{{username}}</div>
+                <div class="bio">{{bio}}</div>
+            {% endfor %}
+        </div>
+        <img class="profile-photo" src="{{user_data.profile_photo_url }}" alt="Profile Photo">
+    </div>
+    <div class="container">
+        <div class="box">
+            <h2>No of logins</h2>
+            <ul>
+                {% for log in loginno %}
+                    <li>Email: {{ log[0] }}</li>
+                    <li>Username: {{ log[1] }}</li>
+                    <li>Login Number: {{ log[2] }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="box">
+        <h2>Mutual Followers</h2>
+            <ul>
+                <p>Here is the list of all common followers</p>
+                <li>{{user_follow}}</li>           
+            </ul>
+        </div>
+    </div>
+    <form method="GET" action="/hashtag">
+        <button type="submit">Hashtags</button>
+    </form>
+    <form method="POST" action="/add_comment"></form>
+    <button type = "submit" value="submit">Add comment</button>
+    </form>
+    <div class="container">
+        <div class="box">
+            <h2>Posts</h2>
+            <ul>
+                <p>Here are your latest posts...</p>
+                {% for post in posts %}
+                    <li>{{ post }}</li>
+                {% endfor %}
+            </ul>
+            <form method="POST" action="/post">
+                <label for="user-id">Enter user_id:</label>
+                <input type="text" id="user-id" name="user-id" required><br><br>
+                <button type="submit" class="box">Fetch Posts</button>
+            </form>
+        </div>
+        <div class="box">
+            <h2>Trending Hashtags</h2>
+            <p>Check out the trending hashtags...</p>
+            <ul>
+                {% for hashtag in hashtag_names %}
+                    <li>{{ hashtag }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="box">
+            <h2>Bookmarks</h2>
+            <p>Your saved bookmarks...</p>
+            <ul>
+                {% for bookmark in bookmarks %}
+                    <li>{{bookmark }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="box">
+            <h2>Followers</h2>
+            <p>Having more than 10 followers</p>
+            <p>ID, Number of followers</p>
+            <ul>
+                {% for follow in follower %}
+                    <li>{{follow}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="box">
+            <h2>Location</h2>
+            <p>IP address</p>
+            <ul>
+                {% for ip in ip_addresses %}
+                    <li>{{ip}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="box">
+            <form method="POST" action="/filtered_posts">
+            <label for="location">Select a Location:</label>
+            <select id="location" name="location">
+                <option value="New York">New York</option>
+                <option value="London">London</option>
+                <option value="Paris">Paris</option>
+                <option value="VHA JHA KOI AATA JAATA NI" >VHA JHA KOI AATA JAATA NI</option>    
+                <option value="The Red Fort, Delhi.">The Red Fort, Delhi.</option>    
+                <option value="The Taj Mahal, Agra.">The Taj Mahal, Agra.</option>    
+                <option value="Pangong Lake, Ladakh.">Pangong Lake, Ladakh.</option>         
+                <option value="Valley of Flowers, Nainital.">Valley of Flowers, Nainital.</option>
+                <option value="Jaisalmer Fort, Jaisalmer." >Jaisalmer Fort, Jaisalmer</option>      
+                <option value="Ruins of Hampi, Karnataka.">Ruins of Hampi, Karnataka.</option>   
+                <option value="Ghats at Varanasi, Uttar Pradesh.">Ghats at Varanasi, Uttar Pradesh.</option>
+                <option value="Backwaters, Kerala.">Backwaters, Kerala.</option>          
+                <option value="abhayapuri ">abhayapuri</option>                 
+                <option value="achabbal">achabbal</option>                 
+                <option value="achalpur">achalpur</option>                 
+                <option value="achhnera">achhnera</option>                 
+                <option value="adari">adari</option>                 
+                <option value="adalaj">adalaj</option>                 
+                <option value="adilabad">adilabad</option>                 
+                <option value="adityana">adityana</option>                 
+                <option value="pereyaapatna">pereyaapatna</option>                 
+                <option value="adoni">adoni</option>                 
+                <option value="adoor">adoor</option>                 
+                <option value="adyar">adyar</option>                 
+                <option value="adra">adra</option>                 
+                <option value="afzalpura">afzalpura</option>                 
+                <option value="agartala">agartala</option>                 
+                <option value="agra">agra</option>                 
+                <option value="ahiwara">ahiwara</option>                 
+                <option value="ahmedabad">ahmedabad</option>                 
+                <option value="ahmedgarh">ahmedgarh</option>                 
+                <option value="ahmednagar">ahmednagar</option>                 
+                <option value="ahmedpur">ahmedpur</option>                 
+                <option value="aizawl">aizawl</option>                 
+                <option value="ajmer">ajmer</option>                 
+                <option value="ajra">ajra</option>                 
+                <option value="akaltara">akaltara</option>                 
+                <option value="akathiyoor">akathiyoor</option>                 
+                <option value="akhnoor">akhnoor</option>                 
+                <option value="akkalkot">akkalkot</option>                 
+                <option value="akola">akola</option>                 
+                <option value="akot">akot</option>                 
+                <option value="alandha">alandha</option>                 
+                <option value="alandi">alandi</option>                 
+                <option value="alang">alang</option>                 
+                <option value="alappuzha">alappuzha</option>                 
+                <option value="aldona">aldona</option>                 
+                <option value="alibag">alibag</option>                 
+                <option value="aligarh">aligarh</option>                 
+                <option value="alipurduar">alipurduar</option>                 
+                <option value="allahabad">allahabad</option>                 
+                <option value="almora">almora</option>                 
+                <option value="aalanavara">aalanavara</option>                 
+                <option value="along">along</option>                 
+                <option value="alur">alur</option>                 
+                <option value="assam">assam</option>                 
+                <option value="jammu and kashmir">jammu and kashmir</option>                 
+                <option value="maharashtra">maharashtra</option>                 
+                <option value="uttar pradesh">uttar pradesh</option>                 
+                <option value="west bengal">west bengal</option>                 
+                <option value="uttarakhand">uttarakhand</option>                 
+                <option value="karnataka">karnataka</option>                 
+                <option value="arunachal pradesh">arunachal pradesh</option>                 
+                <option value="gujarat">gujarat</option>                 
+                <option value="kerala">kerala</option>                 
+                <option value="goa">goa</option>                 
+                <option value="andhra pradesh ">andhra pradesh</option>                 
+                <option value="tripura">tripura</option>                 
+                <option value="chhattisgarh">chhattisgarh</option>                 
+                <option value="punjab">punjab</option>                 
+                <option value="mizoram">mizoram</option>                 
+                <option value="rajasthan">rajasthan</option>
+            </select>
+            <button type="submit">Filter Posts</button>
+        </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
+ 
+
+
+
